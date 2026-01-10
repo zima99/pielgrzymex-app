@@ -1,70 +1,52 @@
-<header class="w-full shadow-md font-sans bg-white relative z-50">
-  
-  <div class="bg-blue-100 py-4 px-4 md:px-8">
-    <div class="container mx-auto flex justify-center md:justify-start items-center">
-      <a href="/" class="text-3xl font-extrabold tracking-wider text-blue-900 hover:opacity-80 transition">
-        PIELGRZYMEX
-      </a>
-    </div>
-  </div>
-
-  <div class="bg-white border-b border-gray-200 py-3 px-4 md:px-8">
-    <div class="container mx-auto">
+<header class="bg-white shadow-md fixed w-full z-50 top-0 left-0">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
       
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-        <div class="flex items-center justify-between w-full md:w-[40%]">
-          
-          <button (click)="toggleMenu()" class="md:hidden text-blue-900 focus:outline-none mr-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-
-          <div class="relative w-full">
-            <input 
-              type="text" 
-              placeholder="Dokąd chcesz pojechać?" 
-              class="w-full border border-gray-300 rounded-full py-2 px-4 pl-10 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
-            >
-            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </div>
-        </div>
-
-        <nav class="hidden md:flex items-center gap-6 text-sm font-bold text-gray-600 uppercase tracking-wide">
-  
-  <a routerLink="/oferta" 
-     routerLinkActive="text-blue-600 border-b-2 border-blue-600"
-     [routerLinkActiveOptions]="{exact: true}"
-     class="hover:text-blue-600 transition py-1">
-     Oferta Pielgrzymek
-  </a>
-
-  <a routerLink="/mapa" routerLinkActive="text-blue-600 border-b-2 border-blue-600" class="hover:text-blue-600 transition py-1">Znajdź na mapie</a>
-  <a routerLink="/dla-firm" routerLinkActive="text-blue-600 border-b-2 border-blue-600" class="hover:text-blue-600 transition py-1">Dla Firm</a>
-  <a routerLink="/o-nas" routerLinkActive="text-blue-600 border-b-2 border-blue-600" class="hover:text-blue-600 transition py-1">O Nas</a>
-  
-  <a href="#" class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition shadow-sm whitespace-nowrap">
-    ZALOGUJ SIĘ
-  </a>
-</nav>
-
+      <div class="flex-shrink-0 flex items-center cursor-pointer" routerLink="/">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="font-bold text-xl text-gray-800 tracking-tight">Pielgrzymex</span>
       </div>
 
-      <div *ngIf="isMobileMenuOpen" class="md:hidden mt-4 pb-2 border-t border-gray-100 animate-pulse">
-        <div class="flex flex-col gap-4 mt-4 font-semibold text-gray-700">
-          <a href="#" class="block py-2 hover:text-blue-600">Oferta Pielgrzymek</a>
-          <a href="#" class="block py-2 hover:text-blue-600">Znajdź na mapie</a>
-          <a href="#" class="block py-2 hover:text-blue-600">Dla Firm</a>
-          <a href="#" class="block py-2 hover:text-blue-600">O Nas</a>
-          <a href="#" class="block py-2 text-blue-600 font-bold border-t border-gray-100 mt-2 pt-4">
-            ZALOGUJ SIĘ
+      <nav class="hidden md:flex space-x-8">
+        <a routerLink="/" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          Strona Główna
+        </a>
+        <a routerLink="/mapa" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          Mapa Pielgrzymek
+        </a>
+        <a routerLink="/featured" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          Oferty
+        </a>
+      </nav>
+
+      <div class="flex items-center">
+        
+        <div *ngIf="!currentUser" class="flex items-center space-x-4">
+          <a routerLink="/logowanie" 
+             class="text-gray-600 hover:text-blue-600 font-medium px-3 py-2 transition-colors">
+            Logowanie
+          </a>
+          <a routerLink="/rejestracja" 
+             class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-md font-medium">
+            Załóż konto
           </a>
         </div>
-      </div>
 
+        <div *ngIf="currentUser" class="flex items-center space-x-4">
+          <div class="hidden md:flex flex-col items-end mr-2">
+            <span class="text-sm text-gray-500">Zalogowany jako</span>
+            <span class="text-sm font-bold text-gray-800">{{ currentUser.firstName }}</span>
+          </div>
+          
+          <button (click)="logout()" 
+                  class="border border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 px-4 py-2 rounded-lg transition font-medium text-sm">
+            Wyloguj
+          </button>
+        </div>
+
+      </div>
     </div>
   </div>
 </header>

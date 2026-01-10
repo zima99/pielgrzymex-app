@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000/api/pielgrzymki';
+  private apiUrl = 'https://pielgrzymex-api.onrender.com/api/pielgrzymki';
 
   constructor(private http: HttpClient) { }
 

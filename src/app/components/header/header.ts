@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Ważne dla *ngIf
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
-@Component({
+Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  // Tutaj wskazujemy Twoje pliki:
   templateUrl: './header.html',
-  // Jeśli nie masz pliku header.css, usuń poniższą linię, lub stwórz pusty plik header.css
-  styleUrls: ['./header.css'] 
+  styleUrls: ['./header.css']
 })
-export class HeaderComponent {
-  isMobileMenuOpen = false;
+export class HeaderComponent implements OnInit {
+  currentUser: any = null; // Tu będziemy trzymać dane usera (np. imię)
 
-  toggleMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  constructor(public authService: AuthService) {} // Public, żeby html widział
+
+  ngOnInit() {
+    // Nasłuchujemy zmian (czy ktoś się zalogował/wylogował?)
+    this.authService.user$.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
