@@ -1,0 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importujemy style prosto z sieci - działa zawsze */
+@import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+
+
+@import "tailwindcss";

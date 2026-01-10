@@ -1,0 +1,95 @@
+<div *ngIf="isLoading" class="flex items-center justify-center h-screen bg-gray-50">
+  <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+</div>
+
+<div *ngIf="trip" class="bg-gray-50 min-h-screen pb-12">
+
+  <div class="relative h-[400px] w-full">
+    <img [src]="trip.image" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+    
+    <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 container mx-auto">
+      <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase tracking-wide mb-3 inline-block">
+        {{ trip.type }}
+      </span>
+      <h1 class="text-white text-4xl md:text-6xl font-extrabold drop-shadow-lg mb-2">
+        {{ trip.title }}
+      </h1>
+      <p class="text-gray-200 text-xl flex items-center gap-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        {{ trip.country }}
+      </p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <div class="lg:col-span-2 space-y-8">
+      
+      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">O pielgrzymce</h2>
+        <p class="text-gray-600 leading-relaxed text-lg">
+          To jest miejsce na długi opis pielgrzymki pobrany z bazy danych. 
+          Możemy tu dodać informacje o programie duchowym, zwiedzaniu i opiekunach grupy.
+          <br><br>
+          Dystans do przebycia: <strong>{{ trip.distance || 'Nie dotyczy' }} km</strong>.
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Plan podróży</h2>
+        <div class="space-y-4 border-l-2 border-blue-100 ml-3">
+          <div class="relative pl-8">
+            <div class="absolute -left-[9px] top-1 w-4 h-4 bg-blue-600 rounded-full border-4 border-white"></div>
+            <h4 class="font-bold text-gray-800">Dzień 1</h4>
+            <p class="text-gray-600">Wyjazd i zakwaterowanie.</p>
+          </div>
+          <div class="relative pl-8">
+            <div class="absolute -left-[9px] top-1 w-4 h-4 bg-gray-300 rounded-full border-4 border-white"></div>
+            <h4 class="font-bold text-gray-800">Dzień 2-5</h4>
+            <p class="text-gray-600">Czas na modlitwę i zwiedzanie.</p>
+          </div>
+          <div class="relative pl-8">
+            <div class="absolute -left-[9px] top-1 w-4 h-4 bg-gray-300 rounded-full border-4 border-white"></div>
+            <h4 class="font-bold text-gray-800">Dzień 6</h4>
+            <p class="text-gray-600">Powrót do domu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="bg-white p-6 rounded-xl shadow-lg border border-blue-100 sticky top-4">
+        <div class="flex justify-between items-end mb-6 border-b pb-4">
+          <span class="text-gray-500 font-medium">Cena całkowita</span>
+          <span class="text-3xl font-extrabold text-blue-600">{{ trip.price }} PLN</span>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <span>Najbliższy termin: <strong>Lipiec 2026</strong></span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <span>Wolnych miejsc: <strong>4</strong></span>
+          </div>
+        </div>
+
+        <button class="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition shadow-md transform hover:scale-[1.02]">
+          ZAREZERWUJ MIEJSCE
+        </button>
+        
+        <p class="text-xs text-center text-gray-400 mt-4">Nie pobieramy opłat wstępnych online.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div *ngIf="!isLoading && !trip" class="flex flex-col items-center justify-center h-screen bg-gray-50 text-center px-4">
+  <h2 class="text-3xl font-bold text-gray-800 mb-4">Nie znaleziono pielgrzymki 😔</h2>
+  <p class="text-gray-600 mb-8">Wygląda na to, że ta oferta już nie istnieje lub link jest nieprawidłowy.</p>
+  <a routerLink="/mapa" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">
+    Wróć do mapy
+  </a>
+</div>

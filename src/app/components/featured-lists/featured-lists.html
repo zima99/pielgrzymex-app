@@ -1,0 +1,118 @@
+<section class="py-12 bg-white relative group">
+  <div class="container mx-auto px-4 md:px-8">
+    
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
+        Najpopularniejsze Miejsca
+      </h2>
+    </div>
+
+    <div class="relative">
+      <button (click)="scroll(container1, 'left')" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white text-blue-900 shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center transition opacity-0 group-hover:opacity-100 hover:bg-blue-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <div #container1 class="flex gap-5 overflow-x-auto scroll-smooth snap-x mandatory pb-8 pt-2 no-scrollbar px-1">
+        <div *ngFor="let place of popularPlaces" 
+             class="snap-start shrink-0 w-[200px] md:w-[280px] 
+                    bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg
+                    cursor-pointer hover:-translate-y-1 transition-all duration-300">
+          
+          <div class="w-full h-[140px] md:h-[180px] rounded-md overflow-hidden relative bg-gray-100">
+             <img [src]="place.image" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+          </div>
+          
+          <div class="mt-3 px-1">
+            <h3 class="text-lg font-bold text-gray-800 leading-tight">{{ place.title }}</h3>
+            <p class="text-xs text-gray-500 mt-1 font-medium">{{ place.country }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="scroll(container1, 'right')" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white text-blue-900 shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center transition opacity-0 group-hover:opacity-100 hover:bg-blue-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-12 bg-blue-50/60 relative group border-t border-b border-blue-100/50">
+  <div class="container mx-auto px-4 md:px-8">
+    
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-1 h-8 bg-orange-500 rounded-full"></div>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
+        Pielgrzymki za Granicę
+      </h2>
+    </div>
+
+    <div class="relative">
+      <button (click)="scroll(container2, 'left')" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-blue-50 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <div #container2 class="flex gap-5 overflow-x-auto scroll-smooth snap-x mandatory pb-8 pt-2 no-scrollbar px-1">
+        <div *ngFor="let place of abroadTrips" 
+             class="snap-start shrink-0 w-[200px] md:w-[280px] 
+                    bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg
+                    cursor-pointer hover:-translate-y-1 transition-all duration-300">
+          
+          <div class="w-full h-[140px] md:h-[180px] rounded-md overflow-hidden relative bg-gray-100">
+             <img [src]="place.image" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+          </div>
+          
+          <div class="mt-3 px-1">
+            <h3 class="text-lg font-bold text-gray-800 leading-tight">{{ place.title }}</h3>
+            <p class="text-xs text-gray-500 mt-1 font-medium">{{ place.country }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="scroll(container2, 'right')" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-blue-50 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-12 bg-white relative group">
+  <div class="container mx-auto px-4 md:px-8">
+    
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-1 h-8 bg-green-600 rounded-full"></div>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
+        Najchętniej Oglądane
+      </h2>
+    </div>
+
+    <div class="relative">
+      <button (click)="scroll(container3, 'left')" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-blue-50 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <div #container3 class="flex gap-5 overflow-x-auto scroll-smooth snap-x mandatory pb-8 pt-2 no-scrollbar px-1">
+        <div *ngFor="let place of mostViewed" 
+             class="snap-start shrink-0 w-[200px] md:w-[280px] 
+                    bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:shadow-lg
+                    cursor-pointer hover:-translate-y-1 transition-all duration-300">
+          
+          <div class="w-full h-[140px] md:h-[180px] rounded-md overflow-hidden relative bg-gray-100">
+             <img [src]="place.image" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+          </div>
+          
+          <div class="mt-3 px-1">
+            <h3 class="text-lg font-bold text-gray-800 leading-tight">{{ place.title }}</h3>
+            <p class="text-xs text-gray-500 mt-1 font-medium">{{ place.country }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="scroll(container3, 'right')" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl border border-gray-100 w-12 h-12 rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-blue-50 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </div>
+</section>
