@@ -9,7 +9,7 @@ import { ApiService } from './api'; // Użyjemy adresu URL z Twojego ApiService
 export class AuthService {
   // UWAGA: Musisz skopiować ten adres ze swojego api.service.ts (tylko część główną bez /pielgrzymki)
   // Jeśli w api.ts masz '.../api/pielgrzymki', to tu daj '.../api/auth'
-  private apiUrl = 'https://zima99.onrender.com/api/auth'; 
+  private apiUrl = 'https://pielgrzymex-api.onrender.com/api/auth'; 
   
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable(); // Inne komponenty mogą nasłuchiwać czy ktoś jest zalogowany

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Ważne dla *ngIf
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
 
-Component({
+@Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
@@ -11,12 +11,12 @@ Component({
   styleUrls: ['./header.css']
 })
 export class HeaderComponent implements OnInit {
-  currentUser: any = null; // Tu będziemy trzymać dane usera (np. imię)
+  currentUser: any = null;
 
-  constructor(public authService: AuthService) {} // Public, żeby html widział
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    // Nasłuchujemy zmian (czy ktoś się zalogował/wylogował?)
+    // Subskrybujemy użytkownika, żeby wiedzieć kiedy ktoś się zaloguje/wyloguje
     this.authService.user$.subscribe(user => {
       this.currentUser = user;
     });
