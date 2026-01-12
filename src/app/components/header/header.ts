@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth'; // Upewnij się, że ścieżka jest ok
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-header',
@@ -11,16 +11,14 @@ import { AuthService } from '../../services/auth'; // Upewnij się, że ścieżk
   styleUrls: ['./header.css']
 })
 export class HeaderComponent implements OnInit {
-  currentUser: any = null; // Ta zmienna steruje widocznością przycisków!
+  currentUser: any = null;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    // 1. Subskrybuj zmiany użytkownika (reakcja na logowanie/wylogowanie)
-    this.authService.currentUser.subscribe(user => {
+    // 👇 TUTAJ BYŁ BŁĄD. Dodaliśmy ": any" przy userze
+    this.authService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
-      // Debugowanie: Zobacz w konsoli (F12) co tu siedzi
-      console.log('Aktualny użytkownik w nagłówku:', this.currentUser);
     });
   }
 
