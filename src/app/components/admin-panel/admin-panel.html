@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-gray-100 p-8 pt-24">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Panel Administratora</h1>
+
+    <div class="flex space-x-4 mb-6">
+      <button (click)="activeTab = 'users'" 
+              [class.bg-blue-600]="activeTab === 'users'"
+              [class.text-white]="activeTab === 'users'"
+              class="px-4 py-2 rounded-lg bg-white shadow hover:bg-gray-50 font-medium transition">
+        Użytkownicy
+      </button>
+      <button (click)="activeTab = 'trips'" 
+              [class.bg-blue-600]="activeTab === 'trips'"
+              [class.text-white]="activeTab === 'trips'"
+              class="px-4 py-2 rounded-lg bg-white shadow hover:bg-gray-50 font-medium transition">
+        Pielgrzymki (Wkrótce)
+      </button>
+    </div>
+
+    <div *ngIf="activeTab === 'users'" class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-gray-50 border-b">
+            <tr>
+              <th class="p-4 font-semibold text-gray-600">Imię i Nazwisko</th>
+              <th class="p-4 font-semibold text-gray-600">Email</th>
+              <th class="p-4 font-semibold text-gray-600">Rola</th>
+              <th class="p-4 font-semibold text-gray-600">Akcje</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users" class="border-b hover:bg-gray-50">
+              <td class="p-4 font-medium">{{ user.firstName }} {{ user.lastName }}</td>
+              <td class="p-4 text-gray-500">{{ user.email }}</td>
+              <td class="p-4">
+                <span [ngClass]="{
+                  'bg-purple-100 text-purple-800': user.role === 'admin',
+                  'bg-yellow-100 text-yellow-800': user.role === 'premium',
+                  'bg-green-100 text-green-800': user.role === 'user'
+                }" class="px-2 py-1 rounded-full text-xs font-bold uppercase">
+                  {{ user.role }}
+                </span>
+              </td>
+              <td class="p-4 flex space-x-2">
+                <button *ngIf="user.role !== 'admin'" (click)="changeRole(user, 'admin')" class="text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Mianuj Adminem</button>
+                <button *ngIf="user.role !== 'premium'" (click)="changeRole(user, 'premium')" class="text-xs bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Daj Premium</button>
+                <button *ngIf="user.role !== 'user'" (click)="changeRole(user, 'user')" class="text-xs bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600">Degraduj</button>
+                <button (click)="deleteUser(user._id)" class="text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">Usuń</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'trips'" class="bg-white p-8 rounded-xl shadow text-center text-gray-500">
+      Tu wkrótce będzie lista pielgrzymek do edycji.
+    </div>
+
+  </div>
+</div>
