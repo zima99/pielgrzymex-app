@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/auth'; // Upewnij się, że ścieżka jest ok
 
 @Component({
   selector: 'app-header',
@@ -11,14 +11,16 @@ import { AuthService } from '../../services/auth';
   styleUrls: ['./header.css']
 })
 export class HeaderComponent implements OnInit {
-  currentUser: any = null;
+  currentUser: any = null; // Ta zmienna steruje widocznością przycisków!
 
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    // Subskrybujemy użytkownika, żeby wiedzieć kiedy ktoś się zaloguje/wyloguje
-    this.authService.user$.subscribe(user => {
+    // 1. Subskrybuj zmiany użytkownika (reakcja na logowanie/wylogowanie)
+    this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
+      // Debugowanie: Zobacz w konsoli (F12) co tu siedzi
+      console.log('Aktualny użytkownik w nagłówku:', this.currentUser);
     });
   }
 
