@@ -1,24 +1,23 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home';
+import { HomeComponent } from './components/home/home'; // Tu pewnie masz stare nazwy, zostaw jak jest u Ciebie
 import { LoginComponent } from './components/login/login';
 import { RegisterComponent } from './components/register/register';
 import { MapComponent } from './components/map/map';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel'; // Tutaj sprawdź czy u Ciebie jest admin-panel.ts czy admin-panel.component.ts
+
+// 👇 TUTAJ POPRAWKA IMPORTU
+import { AdminUserEditComponent } from './components/admin-user-edit/admin-user-edit'; 
 
 export const routes: Routes = [
-  // Strona główna
   { path: '', component: HomeComponent },
-  
-  // Autoryzacja
   { path: 'logowanie', component: LoginComponent },
   { path: 'rejestracja', component: RegisterComponent },
-  
-  // Mapa
   { path: 'mapa', component: MapComponent },
-
-  // Panel Admina (Dostępny pod /admin)
+  
   { path: 'admin', component: AdminPanelComponent },
+  
+  // Trasa edycji
+  { path: 'admin/user/:id', component: AdminUserEditComponent },
 
-  // Opcjonalnie: Przekierowanie nieznanych adresów na stronę główną
   { path: '**', redirectTo: '' }
 ];
