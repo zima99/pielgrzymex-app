@@ -4,32 +4,55 @@
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
         Utwórz konto
       </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        Dołącz do społeczności Pielgrzymex
-      </p>
     </div>
     
     <form class="mt-8 space-y-6" (submit)="onSubmit($event)">
-      <div class="rounded-md shadow-sm -space-y-px">
-        <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="space-y-4">
+        
+        <div class="grid grid-cols-2 gap-4">
           <input name="firstName" type="text" required placeholder="Imię"
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
           <input name="lastName" type="text" required placeholder="Nazwisko"
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
         </div>
-        <div class="mb-4">
-          <input name="email" type="email" required placeholder="Adres Email"
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-        </div>
+
         <div>
-          <input name="password" type="password" required placeholder="Hasło (min. 6 znaków)"
-            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          <input name="email" type="email" required placeholder="Adres Email"
+            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
         </div>
+
+        <div>
+          <input name="password" type="password" required placeholder="Hasło"
+            [class.border-red-500]="passwordError"
+            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors">
+          
+          <p *ngIf="passwordError" class="text-xs text-red-600 mt-1 ml-1 font-bold">
+            {{ passwordError }}
+          </p>
+          <p *ngIf="!passwordError" class="text-xs text-gray-500 mt-1 ml-1">
+            Min. 6 znaków, duża litera, cyfra, znak specjalny.
+          </p>
+        </div>
+
+        <div>
+          <input name="confirmPassword" type="password" required placeholder="Powtórz hasło"
+            [class.border-red-500]="confirmPasswordError"
+            class="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors">
+          
+          <p *ngIf="confirmPasswordError" class="text-xs text-red-600 mt-1 ml-1 font-bold">
+            {{ confirmPasswordError }}
+          </p>
+        </div>
+
+        <div *ngIf="generalError" class="text-center text-red-600 text-sm font-medium p-2 bg-red-50 rounded">
+          {{ generalError }}
+        </div>
+
       </div>
 
       <div>
         <button type="submit"
-          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
           Zarejestruj się
         </button>
       </div>
