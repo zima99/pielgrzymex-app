@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router'; // Dodano Router
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -13,16 +13,21 @@ import { AuthService } from '../../services/auth';
 export class HeaderComponent implements OnInit {
   currentUser: any = null;
 
-  constructor(private authService: AuthService) {}
+  // Wstrzykujemy Router w konstruktorze
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // 👇 TUTAJ BYŁ BŁĄD. Dodaliśmy ": any" przy userze
+    // Nasłuchujemy zmian użytkownika (zalogowany/wylogowany)
     this.authService.currentUser.subscribe((user: any) => {
       this.currentUser = user;
     });
   }
 
   logout() {
+    // 1. Wyczyść dane logowania
     this.authService.logout();
+    
+    // 2. Przekieruj na stronę główną
+    this.router.navigate(['/']);
   }
 }

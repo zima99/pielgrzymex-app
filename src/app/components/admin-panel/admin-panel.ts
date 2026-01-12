@@ -1,28 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [CommonModule], // Dodaj FormsModule jeśli będziesz chciał edytować formularzem
+  imports: [CommonModule],
   templateUrl: './admin-panel.html',
   styleUrls: ['./admin-panel.css']
 })
 export class AdminPanelComponent implements OnInit {
   users: any[] = [];
-  activeTab: string = 'users'; // 'users' albo 'trips'
+  activeTab: string = 'users';
+  isLoading: boolean = false;
   
-  // URL do API (zmień na swój z Rendera!)
+  // Upewnij się, że adres jest poprawny
   private apiUrl = 'https://pielgrzymex-api.onrender.com/api/admin';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private cdr: ChangeDetectorRef // Narzędzie do ręcznego odświeżania widoku
+  ) {}
 
   ngOnInit() {
+    // Odpalamy pobieranie od razu przy wejściu na stronę
     this.loadUsers();
   }
 
-  // Pobierz token z localStorage, żeby udowodnić bycie adminem
+  switchTab(tabName: string) {
+    this.activeTab = tabName;
+    if (tabName === 'users') {
+      this.loadUsers();
+    }
+  }
+
   private getHeaders() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return {
@@ -33,35 +46,53 @@ export class AdminPanelComponent implements OnInit {
   }
 
   loadUsers() {
+    console.log('--- Rozpoczynam pobieranie użytkowników ---');
+    this.isLoading = true;
+    
     this.http.get<any[]>(`${this.apiUrl}/users`, this.getHeaders()).subscribe({
-      next: (data) => this.users = data,
-      error: (err) => console.error('Brak dostępu (czy jesteś adminem?)', err)
+      next: (data) => {
+        console.log('✅ Pobrane dane:', data);
+        this.users = data;
+        this.isLoading = false;
+        
+        // KLUCZOWE: Wymuszenie aktualizacji widoku HTML
+        this.cdr.detectChanges(); 
+      },
+      error: (err) => {
+        console.error('❌ Błąd:', err);
+        this.isLoading = false;
+        this.cdr.detectChanges();
+        
+        if (err.status === 401 || err.status === 403) {
+          alert('Sesja wygasła lub brak uprawnień. Zaloguj się ponownie.');
+          this.router.navigate(['/']);
+        }
+      }
     });
   }
 
-  // Zmiana roli (np. na Premium)
+  // --- AKCJE ---
+
   changeRole(user: any, newRole: string) {
-    if(!confirm(`Czy na pewno zmienić rolę ${user.email} na ${newRole}?`)) return;
+    if(!confirm(`Czy na pewno zmienić rolę użytkownika ${user.email} na ${newRole}?`)) return;
 
     this.http.put(`${this.apiUrl}/users/${user._id}`, { role: newRole }, this.getHeaders())
       .subscribe({
         next: () => {
-          alert('Zmieniono rolę!');
-          this.loadUsers(); // Odśwież listę
+          this.loadUsers(); // Odśwież listę po zmianie
         },
-        error: (err) => alert('Błąd edycji')
+        error: (err) => alert('Błąd podczas zmiany roli')
       });
   }
 
   deleteUser(id: string) {
-    if(!confirm('Czy na pewno usunąć tego użytkownika? To nieodwracalne.')) return;
+    if(!confirm('Czy na pewno usunąć tego użytkownika? Operacja jest nieodwracalna.')) return;
 
     this.http.delete(`${this.apiUrl}/users/${id}`, this.getHeaders()).subscribe({
       next: () => {
-        alert('Usunięto.');
-        this.loadUsers();
+        this.loadUsers(); // Odśwież listę po usunięciu
       },
-      error: (err) => alert('Błąd usuwania')
+      error: (err) => alert('Błąd usuwania użytkownika')
     });
   }
 }

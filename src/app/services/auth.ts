@@ -6,17 +6,21 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  // 👇 Upewnij się, że ten adres jest poprawny
+  // Pamiętaj o poprawnym adresie API
   private apiUrl = 'https://pielgrzymex-api.onrender.com/api/auth';
 
-  // 👇 TE DWIE LINIJKI SĄ KLUCZOWE DLA NAPRAWIENIA BŁĘDU 👇
+  // 1. Źródło prawdy o użytkowniku (BehaviorSubject)
   private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>; 
-  // 👆 Bez tego Header nie zadziała! 👆
+  
+  // 2. Publiczny strumień, do którego podpina się Header
+  public currentUser: Observable<any>;
 
   constructor(private http: HttpClient) {
+    // Przy starcie sprawdzamy localStorage
     const storedUser = localStorage.getItem('user');
     this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
+    
+    // Udostępniamy to jako Observable
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -36,7 +40,9 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((user: any) => {
+        // Zapisz usera w przeglądarce
         localStorage.setItem('user', JSON.stringify(user));
+        // Powiadom całą aplikację
         this.currentUserSubject.next(user);
       })
     );
@@ -45,10 +51,10 @@ export class AuthService {
   // --- WYLOGOWANIE ---
   logout() {
     localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
+    this.currentUserSubject.next(null); // Powiadom, że nikt nie jest zalogowany
   }
 
-  // Metoda pomocnicza (dla kompatybilności wstecznej)
+  // Metoda pomocnicza
   getCurrentUserValue() {
     return this.currentUserSubject.value;
   }
