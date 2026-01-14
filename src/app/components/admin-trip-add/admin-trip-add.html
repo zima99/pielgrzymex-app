@@ -1,0 +1,130 @@
+<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 pt-24">
+  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden fade-in">
+    
+    <div class="bg-blue-600 px-6 py-4">
+      <h2 class="text-2xl font-bold text-white">Dodaj Nową Pielgrzymkę</h2>
+      <p class="text-blue-100 text-sm">Uzupełnij szczegóły wyjazdu.</p>
+    </div>
+
+    <div class="p-8 space-y-8">
+      
+      <div>
+        <label class="block text-sm font-bold text-gray-700 mb-1">Nazwa Pielgrzymki *</label>
+        <input type="text" [(ngModel)]="trip.name" class="w-full border rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="np. Jasna Góra 2024">
+        <div class="bg-gray-50 p-4 rounded-lg border border-dashed border-blue-300 text-center">
+        <label class="block text-sm font-bold text-gray-700 mb-2">Zdjęcie główne</label>
+        
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="mb-3 block w-full text-sm text-gray-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-blue-50 file:text-blue-700
+          hover:file:bg-blue-100
+        "/>
+
+        <div *ngIf="previewUrl" class="mt-2">
+          <p class="text-xs text-gray-400 mb-1">Podgląd:</p>
+          <img [src]="previewUrl" class="h-40 mx-auto rounded-lg shadow object-cover">
+        </div>
+      </div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Opis (opcjonalnie)</label>
+        <textarea [(ngModel)]="trip.description" rows="3" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-1">Miejscowość Startu *</label>
+          <input type="text" [(ngModel)]="trip.startLocation" class="w-full border rounded px-3 py-2 focus:border-blue-500 outline-none" placeholder="np. Warszawa">
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-1">Miejscowość Celu *</label>
+          <input type="text" [(ngModel)]="trip.destination" class="w-full border rounded px-3 py-2 focus:border-blue-500 outline-none" placeholder="np. Częstochowa">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Data Startu *</label>
+          <input type="date" [(ngModel)]="trip.startDate" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Data Końca *</label>
+          <input type="date" [(ngModel)]="trip.endDate" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+      </div>
+
+      <div class="border-t pt-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">Szczegóły Wyjazdu</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Typ Transportu *</label>
+              <select [(ngModel)]="trip.type" class="w-full border rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="piesza">🚶 Piesza</option>
+                <option value="rowerowa">🚲 Rowerowa</option>
+                <option value="autokarowa">🚌 Autokarowa</option>
+                <option value="samolotowa">✈️ Samolotowa</option>
+                <option value="inna">❓ Inna</option>
+              </select>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-1/2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Koszt (PLN) *</label>
+                <input type="number" [(ngModel)]="trip.price" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0.00">
+              </div>
+              <div class="w-1/2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Liczba miejsc</label>
+                <input type="number" [(ngModel)]="trip.spots" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="50">
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+            <label class="block text-sm font-bold text-blue-800 mb-3">Rodzaj / Grupa docelowa</label>
+            
+            <div class="space-y-2">
+              <label class="flex items-center cursor-pointer hover:bg-blue-100 p-1 rounded transition">
+                <input type="checkbox" [(ngModel)]="categoriesData.youth" class="h-4 w-4 text-blue-600 rounded">
+                <span class="ml-2 text-sm text-gray-700">Młodzieżowa</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer hover:bg-blue-100 p-1 rounded transition">
+                <input type="checkbox" [(ngModel)]="categoriesData.adults" class="h-4 w-4 text-blue-600 rounded">
+                <span class="ml-2 text-sm text-gray-700">Dla dorosłych</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer hover:bg-blue-100 p-1 rounded transition">
+                <input type="checkbox" [(ngModel)]="categoriesData.state" class="h-4 w-4 text-blue-600 rounded">
+                <span class="ml-2 text-sm text-gray-700">Stanowa (Męska/Żeńska)</span>
+              </label>
+
+              <label class="flex items-center cursor-pointer hover:bg-blue-100 p-1 rounded transition">
+                <input type="checkbox" [(ngModel)]="categoriesData.family" class="h-4 w-4 text-blue-600 rounded">
+                <span class="ml-2 text-sm text-gray-700">Rodzinna</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-t">
+      <button (click)="cancel()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition font-medium">
+        Anuluj
+      </button>
+      
+      <button (click)="saveTrip()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-bold shadow-md flex items-center">
+        <span>Utwórz Pielgrzymkę</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
